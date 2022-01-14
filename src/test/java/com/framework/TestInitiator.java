@@ -12,12 +12,27 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import com.automation.keywords.TTRHomePage;
 
 public class TestInitiator {
 
 	public static Map<String, String> testEnv = new HashMap<String, String>();
 	protected WebDriver driver;
 	private final WebDriverFactory wdfactory;
+	
+	public TTRHomePage ttrhomepage;
+	public WebDriver getDriver() {
+		return this.driver;
+	}
+
+
+	
+	
+	private void _initPage() {
+		ttrhomepage = new TTRHomePage(driver);
+	}
+	
+	
 	
 	public TestInitiator() {
 
@@ -28,15 +43,18 @@ public class TestInitiator {
 		
 		ConfigReader config = new ConfigReader();
 		testEnv = config.getTestEnv();
-		System.out.println(">>>"+testEnv.get("browser"));
 		driver = wdfactory.getDriver(testEnv);
 		driver.manage().deleteAllCookies();
 	}
 
 	public void LaunchApplication() throws FileNotFoundException {
-		
+		System.out.println(">>><<<<<<<<<<<<<<<<<<<<<<");
+
 		InitializeBrowser();
+		_initPage() ;
+
 		driver.get(testEnv.get("baseURL"));
+
 		
 	}
 	

@@ -4,6 +4,7 @@ package com.automation.functional;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -17,17 +18,21 @@ import org.apache.logging.log4j.Logger;
 
 public class DemoTest {
     private static Logger logger = LogManager.getLogger();
-    TestInitiator test = new TestInitiator();
-    @Test
+    TestInitiator test;
+    String app_url;
     
     
-    public void f() throws IOException {
-    
-        String testTitle = "Home - Two Tyred Riders";
-        String originalTitle = "Home - Two Tyred Riders";
-        test.LaunchApplication();
-        Assert.assertEquals(originalTitle, testTitle);
+    @BeforeClass
+    public void setupTest() {
+         test = new TestInitiator();
     }
+    
+    
+    @Test(description = "Test to Verify HomePage Launched Properly")
+    public void validateHomePageLaunch() throws IOException {
+        test.LaunchApplication();
+        test.ttrhomepage.verifyuserisoncampusloginpage();
+        }
 
     @BeforeMethod
     public void beforeMethod() {
