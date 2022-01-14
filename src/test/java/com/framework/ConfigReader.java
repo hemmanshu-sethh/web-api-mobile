@@ -10,31 +10,63 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
-public class configReader {
+public class ConfigReader {
 
     private static Logger logger = LogManager.getLogger();
-    public static Map <String, String> testEnv= new HashMap<String, String>();
     Map<String, Map<String, Map<String, String>>> testEnvMap= new HashMap<>();
     String tier,platform;
     
-    public void getTestEnv() throws FileNotFoundException
+    public Map<String,String> getTestEnv() throws FileNotFoundException
     {
+        	Map <String, String> testEnv= new HashMap<String, String>();
     		logger.debug("Initializing to Read Test Environment");
     		readTestEnv();
     		testEnv.put("tier",getTier());
     		testEnv.put("platform", getPlatform());
     		testEnv.put("browser",getBrowser() );
     		testEnv.put("baseURL", getbaseURL());
+    		testEnv.put("seleniumserver", getseleniumserver());
+    		if(platform=="android")
+    		{
+        		testEnv.put("androideviceName", getAndroidDeviceName());
+        		testEnv.put("androidversion", getAndroidVersion());
+        		testEnv.put("androidautomation", getAndroidAutomation());
+    		}
+    		
+    		return testEnv;
 
     }
     
+    private String getAndroidDeviceName() {
+     	String androideviceName= testEnvMap.get("Execution").get("android").get("device").toString();
+    		logger.debug("Test will be executed on Android Device "+androideviceName);
+    		return androideviceName;
+	}    
+   
+    private String getAndroidVersion() {
+     	String androidversion= testEnvMap.get("Execution").get("android").get("device").toString();
+    		logger.debug("Test will be executed on Android Device "+androidversion);
+    		return androidversion;
+	}    
     
-    private  String getbaseURL() throws FileNotFoundException {	             
-    	return(testEnvMap.
-    				get("URLs").
-    				get(tier).
-    				get(platform).
-    				toString());
+
+    private String getAndroidAutomation() {
+     	String androidautomation= testEnvMap.get("Execution").get("android").get("automation").toString();
+    		logger.debug("Test will be executed on Android Device "+androidautomation);
+    		return androidautomation;
+	}    
+    private String getseleniumserver() {
+     	String seleniumserver= testEnvMap.get("Execution").get("environment").get("seleniumserver").toString();
+    		logger.debug("Test will be executed on machine "+seleniumserver);
+    		return seleniumserver;
+	}
+
+
+	private  String getbaseURL() throws FileNotFoundException {	  
+		if(platform=="api")
+			return(testEnvMap.get("URLs").get(tier).get(platform).toString());		
+		else	
+			return(testEnvMap.get("URLs").get(tier).get("web").toString());
     }
     
     private  String getTier() throws FileNotFoundException {	 
@@ -70,6 +102,9 @@ public class configReader {
         }    	
     	
     }
+
+
+	
 
     
     
