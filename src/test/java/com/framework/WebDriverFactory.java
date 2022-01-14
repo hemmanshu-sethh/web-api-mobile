@@ -3,6 +3,8 @@ package com.framework;
 import java.net.URL;
 import java.util.Map;
 import org.openqa.selenium.WebDriver;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -25,16 +27,18 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 
 public class WebDriverFactory {
-
+    private static Logger logger = LogManager.getLogger();
 	private static String browser;
 
 	public WebDriver getDriver(Map<String, String> getEnv) {
 		browser = getEnv.get("browser");
-
-		System.out.println("-----------" + getEnv.toString());
+		if (getEnv.get("seleniumserver").equalsIgnoreCase("remote")) {
+			return setRemoteDriver(getEnv);
+		}
 		if (getEnv.get("seleniumserver").equalsIgnoreCase("local")) {
 
-			if (getEnv.get("platform").equalsIgnoreCase("web")) {
+			if (getEnv.get("platform").equalsIgnoreCase("windows")) {
+
 				if (browser.equalsIgnoreCase("firefox")) {
 					return getFirefoxDriver();
 				} else if (browser.equalsIgnoreCase("chrome")) {
@@ -50,6 +54,7 @@ public class WebDriverFactory {
 					return getInternetExplorerDriver();
 				}
 			}
+			
 			if (getEnv.get("platform").equalsIgnoreCase("android")) {
 				try {
 					return getAppiumDriver(getEnv);
@@ -57,13 +62,13 @@ public class WebDriverFactory {
 					e.printStackTrace();
 				}
 			}
-
 		}
+		
 
-		if (getEnv.get("seleniumserver").equalsIgnoreCase("remote")) {
-			return setRemoteDriver(getEnv);
-		}
-		return new FirefoxDriver();
+		
+		logger.error("Invalid platform value provided");
+
+		return null;
 	}
 
 	private WebDriver setRemoteDriver(Map<String, String> selConfig) {

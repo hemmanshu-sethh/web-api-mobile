@@ -1,0 +1,8 @@
+# platform web/android/ios,
+
+Title: Home - Two Tyred Riders
+elements:
+   navigation:   
+      menu:
+         - { platform: "web", type: "css"}
+     
