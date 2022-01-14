@@ -1,0 +1,5 @@
+18:52:00.336 [main] DEBUG com.framework.configReader - Initializing to Read Test Environment
+18:52:00.399 [main] DEBUG com.framework.configReader - Test will be executed on PROD environment
+18:52:00.400 [main] DEBUG com.framework.configReader - Test will be executed on platform web
+18:52:00.400 [main] DEBUG com.framework.configReader - Test will be executed on browser chrome
+18:52:09.162 [main] DEBUG com.automation.functional.DemoTest - It is a debug logger2.

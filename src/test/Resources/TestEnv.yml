@@ -1,0 +1,19 @@
+Execution:
+  Config: 
+     tier: PROD
+     platform: web
+     browser: chrome
+   
+URLs:
+  QA:
+    web: https://www.yahoo.com
+    api:
+  PROD:
+    web: https://twotyredriders.club/
+    api:
+  DEV:
+    web:
+      api:
+
+       
+Database:  

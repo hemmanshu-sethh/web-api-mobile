@@ -1,0 +1,4 @@
+18:49:52.487 [main] DEBUG com.framework.configReader - Initializing to Read Test Environment
+18:49:52.548 [main] DEBUG com.framework.configReader - Test will be executed on QA environment
+18:49:52.549 [main] DEBUG com.framework.configReader - Test will be executed on platform web
+18:49:52.549 [main] DEBUG com.framework.configReader - Test will be executed on browser chrome
