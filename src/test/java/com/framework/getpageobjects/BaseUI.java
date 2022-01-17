@@ -7,7 +7,7 @@ public class BaseUI {
 
 
 	protected WebDriver driver;
-//	public SeleniumWait wait;
+	public SeleniumWait wait;
 	private String pageName;
 
 
@@ -15,8 +15,8 @@ public class BaseUI {
 		PageFactory.initElements(driver, this);
 		this.driver = driver;
 		this.pageName = pageName;
-//		this.wait = new SeleniumWait(driver, Integer.parseInt(getProperty(
-//				"Config.properties", "timeout")));
+		this.wait = new SeleniumWait(driver, 10);
+
 	}
 	
 	protected String getPageTitle() {

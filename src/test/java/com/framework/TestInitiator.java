@@ -5,13 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.firefox.FirefoxProfile;
+
 import com.automation.keywords.TTRHomePage;
 
 public class TestInitiator {
@@ -19,8 +14,14 @@ public class TestInitiator {
 	public static Map<String, String> testEnv = new HashMap<String, String>();
 	protected WebDriver driver;
 	private final WebDriverFactory wdfactory;
-	
 	public TTRHomePage ttrhomepage;
+	
+		
+	public TestInitiator(String testname) throws FileNotFoundException {
+		wdfactory = new WebDriverFactory();
+	}
+
+	
 	public WebDriver getDriver() {
 		return this.driver;
 	}
@@ -30,14 +31,10 @@ public class TestInitiator {
 	
 	private void _initPage() {
 		ttrhomepage = new TTRHomePage(driver);
-	}
-	
-	
-	
-	public TestInitiator() {
 
-		this.wdfactory = new WebDriverFactory();	
 	}
+	
+	
 
 	public void InitializeBrowser()  throws FileNotFoundException{
 		
@@ -47,21 +44,21 @@ public class TestInitiator {
 		driver.manage().deleteAllCookies();
 	}
 
-	public void LaunchApplication() throws FileNotFoundException {
-		System.out.println(">>><<<<<<<<<<<<<<<<<<<<<<");
-
+	public void LaunchApplication() throws FileNotFoundException, InterruptedException {
+		
 		InitializeBrowser();
 		_initPage() ;
-
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.get(testEnv.get("baseURL"));
-
-		
+        Thread.sleep(500);
+		  driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
+		  
 	}
 	
 	
 	public void CloseApplication()
 	{
-		   driver.close();
-	        System.out.println("Finished Test On Chrome Browser");
+//		   driver.close();
+//	        System.out.println("Finished Test On Chrome Browser");
 	}
 }

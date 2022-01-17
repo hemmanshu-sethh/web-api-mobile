@@ -1,0 +1,31 @@
+# platform windows/android/osx/ios,
+#keywords
+
+Title: Google
+elements:  
+   searchbox:    
+     text: Test Text
+     testdata: This is Test Data1                
+     identifier: 
+          - {platform:["windows"],type: name, value: "q" }         
+          - {platform:["osx","android"] ,type: xpath ,value: 'label.hs-error-msg[data-reactid*="${name}"]' }         
+          - {platform:["ios"] ,type: xpath ,value: 'label.hs-error-msg[data-reactid*="${name}"]' }         
+          
+   menu1:    
+     text: test2
+     testdata: This is Test Data2                
+     identifier: 
+          - {platform:["windows"],type: css, value: 'label.hs-error-msg[data-reactid*="${name}"]' }         
+          - {platform:["osx"] ,type: xpath ,value: 'label.hs-error-msg[data-reactid*="${name}"]' }         
+   menu2:    
+     text: test3
+     testdata: This is Test Data3                
+     identifier: 
+          - {platform:["windows","android"],type: css, value: 'label.hs-error-msg[data-reactid*="${name}"]' }         
+          - {platform:["osx"] ,type: xpath ,value: 'label.hs-error-msg[data-reactid*="${name}"]' }         
+   menu3:    
+     text: test4
+     identifier: 
+          - {platform:["windows","android"],type: css, value: 'label.hs-error-msg[data-reactid*="${name}"]' }         
+          - {platform:["osx"] ,type: xpath ,value: 'label.hs-error-msg[data-reactid*="${name}"]' }         
+ 

@@ -1,7 +1,7 @@
 Execution:
   Config: 
      tier: PROD
-     platform: windows      #windows/osx/mobile/api
+     platform: windows      #windows/osx/android/ios/api
      browser: chrome
   environment:
      seleniumserver: local
@@ -12,10 +12,10 @@ Execution:
      automation: UiAutomator2    
 URLs:
   QA:
-    web: https://www.yahoo.com
+    web: https://www.google.com
     api:
   PROD:
-    web: https://twotyredriders.club/
+    web: https://www.google.com
     api:
   DEV:
     web:
