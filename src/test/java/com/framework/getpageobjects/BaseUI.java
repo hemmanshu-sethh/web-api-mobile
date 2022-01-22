@@ -8,13 +8,13 @@ public class BaseUI {
 
 	protected WebDriver driver;
 	public SeleniumWait wait;
-	private String pageName;
+	private String PageName;
 
 
 	protected BaseUI (WebDriver driver, String pageName) {
 		PageFactory.initElements(driver, this);
 		this.driver = driver;
-		this.pageName = pageName;
+		this.PageName = pageName;
 		this.wait = new SeleniumWait(driver, 10);
 
 	}

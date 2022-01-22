@@ -1,5 +1,6 @@
 package com.framework.getpageobjects;
 
+import static com.framework.ConfigReader.getElementsTestData;
 import static org.junit.Assert.fail;
 
 import java.util.Map;
@@ -15,32 +16,40 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.framework.ConfigReader;
 public class GetPage extends BaseUI {
 
-	ConfigReader config = new ConfigReader();
-    protected WebDriver webdriver;
-    String pageName;
+
 
     //Constructor
-    public GetPage(WebDriver driver, String pageName) {
-        super(driver, pageName);
+    public GetPage(WebDriver driver, String PageName) {
+        super(driver, PageName);
         this.webdriver = driver;
-        this.pageName = pageName;
+        this.PageName = PageName;
     }
     
+	ConfigReader config = new ConfigReader();
+	
+	
+    protected WebDriver webdriver;
+    
+    String PageName; 
     
     
-
-	protected WebElement element(String PageName, String ElementName, String Platform) {
+    protected WebElement element( String ElementName) {
 		
-		String type=config.getElementsIdentifier("TTRHomePage", "searchbox", "windows").get("type");
-    	String value=config.getElementsIdentifier("TTRHomePage", "searchbox", "windows").get("value");
+		String type=config.getElementsIdentifier(PageName, ElementName).get("type");
+    	String value=config.getElementsIdentifier(PageName, ElementName).get("value");
     	WebElement elem = driver.findElement( getBy(type, value) );
     	wait.waitForElementToBeVisible(elem);
 
 	    return elem;
 		 
 	}
+    
+    protected String getTestDataFromYaml(String ElementName)
+    {
 	
-	
+    return config.getElementsTestData(PageName,"searchbox");
+    		
+    }
     
 //    private boolean _isElementDisplayed(String locator, String replacement) {
 //        WebElement elem = element(locator, replacement);
@@ -113,30 +122,30 @@ public class GetPage extends BaseUI {
 //				Verification.DISPLAYED, "");
 //	}
 //
-    protected  WebElement element(String elementToken) {
-//    	System.out.println( ">>>>>>>>>>>>>>>>>>>>>"+config.getElementsIdentifier("TTRHomePage", "searchbox", "windows").get("type"));
-        return element(elementToken, "");
-    }
-
-    protected WebElement element(String elementToken, String replacement)
-            throws NoSuchElementException {
-        WebElement elem = null;
-        Long starttime =  System.currentTimeMillis();
-//        try {
-         
-            System.out.println("elem----"+getLocator(elementToken, replacement));
-            elem = wait.waitForElementToBeVisible(webdriver
-                    .findElement(getLocator(elementToken, replacement)));
-//        } catch (NoSuchElementException excp) {
-//            Long endtime = System.currentTimeMillis();
-//            float sec = (endtime - starttime) / 1000F;
-//            fail("FAILED: Element " + elementToken + " not found on the " + this.pageName + " after " + sec +  " seconds !!!");
-//        }
-////        catch (NullPointerException npe){
-////
+//    protected  WebElement element(String elementToken) {
+////    	System.out.println( ">>>>>>>>>>>>>>>>>>>>>"+config.getElementsIdentifier("TTRHomePage", "searchbox", "windows").get("type"));
+//        return element(elementToken, "");
+//    }
+//
+//    protected WebElement element(String elementToken, String replacement)
+//            throws NoSuchElementException {
+//        WebElement elem = null;
+//        Long starttime =  System.currentTimeMillis();
+////        try {
+//         
+//            System.out.println("elem----"+getLocator(elementToken, replacement));
+//            elem = wait.waitForElementToBeVisible(webdriver
+//                    .findElement(getLocator(elementToken, replacement)));
+////        } catch (NoSuchElementException excp) {
+////            Long endtime = System.currentTimeMillis();
+////            float sec = (endtime - starttime) / 1000F;
+////            fail("FAILED: Element " + elementToken + " not found on the " + this.pageName + " after " + sec +  " seconds !!!");
 ////        }
-        return elem;
-    }
+//////        catch (NullPointerException npe){
+//////
+//////        }
+//        return elem;
+//    }
 
 //    protected List<WebElement> elements(String elementToken, String replacement) {
 //        return wait.waitForElementsToBeVisible(webdriver.findElements(getLocator(
@@ -217,8 +226,8 @@ public class GetPage extends BaseUI {
     protected By getLocator(String elementToken, String replacement) {
 //        String[] locator = getElementFromFile(this.pageName, elementToken);
 //        locator[2] = locator[2].replaceAll("\\$\\{.+\\}", replacement);
-    	String type=config.getElementsIdentifier("TTRHomePage", "searchbox", "windows").get("type");
-    	String value=config.getElementsIdentifier("TTRHomePage", "searchbox", "windows").get("value");
+    	String type=config.getElementsIdentifier("TTRHomePage", "searchbox").get("type");
+    	String value=config.getElementsIdentifier("TTRHomePage", "searchbox").get("value");
 
         return getBy(type, value);
 

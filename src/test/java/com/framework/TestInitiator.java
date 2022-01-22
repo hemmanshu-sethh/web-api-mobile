@@ -7,14 +7,14 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 
-import com.automation.keywords.TTRHomePage;
+import com.automation.keywords.GoogleHomePage;
 
 public class TestInitiator {
 
 	public static Map<String, String> testEnv = new HashMap<String, String>();
 	protected WebDriver driver;
 	private final WebDriverFactory wdfactory;
-	public TTRHomePage ttrhomepage;
+	public GoogleHomePage ttrhomepage;
 	
 		
 	public TestInitiator(String testname) throws FileNotFoundException {
@@ -30,7 +30,7 @@ public class TestInitiator {
 	
 	
 	private void _initPage() {
-		ttrhomepage = new TTRHomePage(driver);
+		ttrhomepage = new GoogleHomePage(driver);
 
 	}
 	
@@ -40,8 +40,13 @@ public class TestInitiator {
 		
 		ConfigReader config = new ConfigReader();
 		testEnv = config.getTestEnv();
+
 		driver = wdfactory.getDriver(testEnv);
+		System.out.println("000000"+driver);
+
 		driver.manage().deleteAllCookies();
+
+		
 	}
 
 	public void LaunchApplication() throws FileNotFoundException, InterruptedException {

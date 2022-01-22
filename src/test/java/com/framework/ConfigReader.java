@@ -4,7 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.yaml.snakeyaml.Yaml;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,21 +15,20 @@ import java.util.Map;
 
 public class ConfigReader {
 	
+	private String PageName;
 	private static Logger logger = LogManager.getLogger();
-	public static Map<String, Map<String, Map<String, String>>> testEnvMap = new HashMap<>();
+	Map<String, Map<String, Map<String, String>>> testEnvMap = new HashMap<>();
+	public static  Map<String, String> testEnv = new HashMap<String, String>();
 
 	String tier, platform;
 
-	public ConfigReader() {
-		
-		
-	}
+
+
 	
 	public Map<String, String> getTestEnv() throws FileNotFoundException {
 
 		
 
-		Map<String, String> testEnv = new HashMap<String, String>();
 		logger.debug("Initializing to Read Test Environment");
 		readTestEnv();
 		testEnv.put("tier", getTier());
@@ -35,10 +36,13 @@ public class ConfigReader {
 		testEnv.put("browser", getBrowser());
 		testEnv.put("baseURL", getbaseURL());
 		testEnv.put("seleniumserver", getseleniumserver());
-		if (platform == "android") {
+
+		if (platform.contains("android")) {
 			testEnv.put("androideviceName", getAndroidDeviceName());
 			testEnv.put("androidversion", getAndroidVersion());
 			testEnv.put("androidautomation", getAndroidAutomation());
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+testEnv.toString());
+
 		}
 
 		return testEnv;
@@ -52,9 +56,10 @@ public class ConfigReader {
 	}
 
 	private String getAndroidVersion() {
-		String androidversion = testEnvMap.get("Execution").get("android").get("device").toString();
+		
+		String androidversion = 		String.valueOf(testEnvMap.get("Execution").get("android").get("version"));
 		logger.debug("Test will be executed on Android Device " + androidversion);
-		return androidversion;
+		return (androidversion);
 	}
 
 	private String getAndroidAutomation() {
@@ -109,16 +114,27 @@ public class ConfigReader {
 
 	}
 
-	private String getPageElementsMetaData(String PageName, String ElementName, String attribute) {
+	public String getPageElementsMetaData(String PageName, String ElementName, String attribute) {
 		Map<String, Map<String, Map<String, String>>> temp = new HashMap();
 		temp = (Map<String, Map<String, Map<String, String>>>) ReadFileTestResources(PageName);
 		return temp.get("elements").get(ElementName).get(attribute);
 	}
+	
+	public String getElementsLabel(String PageName, String ElementName) {
+		Map<String, Map<String, Map<String, String>>> temp = new HashMap();
+		temp = (Map<String, Map<String, Map<String, String>>>) ReadFileTestResources(PageName);
+		return temp.get("elements").get(ElementName).get("label");
+	}
+	
+	public static String getElementsTestData(String PageName, String ElementName) {
+		Map<String, Map<String, Map<String, String>>> temp = new HashMap();
+		temp = (Map<String, Map<String, Map<String, String>>>) ReadFileTestResources(PageName);
+		return temp.get("elements").get(ElementName).get("testdata");
+	}
 
-	public Map<String, String> getElementsIdentifier(String PageName, String ElementName, String Platform) {
-//		public Map<String, String> getElementsIdentifier(String PageName, String ElementName, String Platform) {
-
-		Map<String, String> identifier = new HashMap();
+	public Map<String, String> getElementsIdentifier(String PageName, String ElementName) {
+		 Map<String, String> identifier=new HashMap();
+		String Platform= ConfigReader.testEnv.get("platform");
 		Map<String, Map<String, Map<String, Map<String, Map<String, Map<String, List<String>>>>>>> PageSpec = (Map<String, Map<String, Map<String, Map<String, Map<String, Map<String, List<String>>>>>>>) ReadFileTestResources(
 				PageName);
 
@@ -169,13 +185,16 @@ public class ConfigReader {
 
 	}
 
-	private Object ReadFileTestResources(String filename) {
+	private static Object ReadFileTestResources(String filename) {
 		System.out.println("The file I am processing"+filename);
 		Object filecontents = null;
-		InputStreamReader reader;
+		
 		try {
-			reader = new InputStreamReader( getClass().getClassLoader().getResourceAsStream(filename + ".yml"));
 			
+			InputStream inputStream       = new FileInputStream("src/test/resources//"+filename + ".yml");
+
+			InputStreamReader reader   = new InputStreamReader(inputStream);
+
 			Yaml yaml = new Yaml();
 			filecontents = yaml.load(reader);
 

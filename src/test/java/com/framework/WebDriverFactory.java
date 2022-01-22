@@ -32,9 +32,11 @@ public class WebDriverFactory {
 
 	public WebDriver getDriver(Map<String, String> getEnv) {
 		browser = getEnv.get("browser");
+		
 		if (getEnv.get("seleniumserver").equalsIgnoreCase("remote")) {
 			return setRemoteDriver(getEnv);
 		}
+		
 		if (getEnv.get("seleniumserver").equalsIgnoreCase("local")) {
 
 			if (getEnv.get("platform").equalsIgnoreCase("windows")) {
@@ -44,7 +46,7 @@ public class WebDriverFactory {
 				} else if (browser.equalsIgnoreCase("chrome")) {
 					return getChromeDriver();
 				} else if (browser.equalsIgnoreCase("firefox")) {
-					return getChromeDriver();
+					return getFirefoxDriver();
 				} else if (browser.equalsIgnoreCase("Safari")) {
 					return getSafariDriver();
 				} else if (browser.equalsIgnoreCase("edge")) {
@@ -101,9 +103,10 @@ public class WebDriverFactory {
 		capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
 		capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, getEnv.get("androidversion"));
 		capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, getEnv.get("androideviceName"));
-		capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, getEnv.get("androideviceName"));
+		capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, getEnv.get("androidautomation"));
 		capabilities.setCapability(MobileCapabilityType.BROWSER_NAME,getEnv.get("browser"));
 		URL url = new URL("http://127.0.0.1:4723/wd/hub");
+		System.out.println("----------------------------------------------"+getEnv);
 		return new AppiumDriver<>(url, capabilities);
 	}
 
@@ -136,6 +139,7 @@ public class WebDriverFactory {
 	private static WebDriver getFirefoxDriver() {
 		FirefoxProfile profile = new FirefoxProfile();
 		profile.setPreference("browser.cache.disk.enable", false);
+		profile.setPreference("binary", "C:\\dev\\browsers\\geckodriver.exe");
 		FirefoxOptions firefoxOptions = new FirefoxOptions();
 		firefoxOptions.setCapability("marionette", true);
 		firefoxOptions.setCapability(FirefoxDriver.PROFILE, profile);

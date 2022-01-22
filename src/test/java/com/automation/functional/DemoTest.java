@@ -16,13 +16,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.framework.ConfigReader;
+import static com.framework.ConfigReader.getElementsTestData;;
+
 
 public class DemoTest {
     private static Logger logger = LogManager.getLogger();
     TestInitiator test;
     String app_url;
-    ConfigReader config = new ConfigReader();
     
     @BeforeClass
     public void setupTest() throws FileNotFoundException {
@@ -34,18 +34,17 @@ public class DemoTest {
         System.out.println("Starting Test On Chrome Browser");
     }
 
-    @Test(description = "Test to Verify HomePage Launched Properly")
-    public void testTTRHomePage() throws IOException, Exception {
+    @Test(description = "Test to Verify Google Home Page Launch")
+    public void testGoogleHomePageLaunch() throws IOException, Exception {
     	test.LaunchApplication();
-       test.ttrhomepage.clickOnSignOn();
+       test.ttrhomepage.PerformSearch();
         }
 
-//    @Test(dependsOnMethods = "testTTRHomePage", description = "Test error message is displayed on entring wrong username and password")
-//    public void stravaSignIn() {
-//      
-////    	test.ttrhomepage.clickOnSignOn();
-//
-//    }
+    @Test(dependsOnMethods = "testGoogleHomePageLaunch", description = "Perform Search")
+    public void stravaSignIn() {
+      
+    	
+    }
     
     
     @AfterMethod

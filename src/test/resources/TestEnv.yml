@@ -1,15 +1,15 @@
 Execution:
   Config: 
      tier: PROD
-     platform: windows      #windows/osx/android/ios/api
-     browser: chrome
+     platform: android      #windows/osx/android/ios/api
+     browser: firefox
   environment:
      seleniumserver: local
      seleniumserverhost: http://10.0.36.15:4444/wd/hub
   android:
      version: 10.0
      device: emulator-5554
-     automation: UiAutomator2    
+     automation: Gecko    
 URLs:
   QA:
     web: https://www.google.com
