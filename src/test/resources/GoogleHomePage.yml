@@ -5,18 +5,16 @@ Title: Google
 elements:  
    searchbox:    
      label: Test Text
-     testdata: This is Test Data1                
+     testdata: test               
      identifier: 
           - {platform:["windows","android"],type: css, value: 'input[name="q"]' }         
           - {platform:["osx"] ,type: xpath ,value: 'label.hs-error-msg[data-reactid*="${name}"]' }         
           - {platform:["ios"] ,type: xpath ,value: 'label.hs-error-msg[data-reactid*="${name}"]' }         
           
-   menu1:    
-     label: test2
-     testdata: This is Test Data2                
+   firstresult:    
      identifier: 
-          - {platform:["windows"],type: css, value: 'label.hs-error-msg[data-reactid*="${name}"]' }         
-          - {platform:["osx"] ,type: xpath ,value: 'label.hs-error-msg[data-reactid*="${name}"]' }         
+          - {platform:["windows"],type: xpath, value: '//h3' }    
+          - {platform:["android"],type: css, value: 'a[role="presentation"]' }    
    menu2:    
      label: test3
      testdata: This is Test Data3                

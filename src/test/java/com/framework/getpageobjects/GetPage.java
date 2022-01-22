@@ -3,6 +3,7 @@ package com.framework.getpageobjects;
 import static com.framework.ConfigReader.getElementsTestData;
 import static org.junit.Assert.fail;
 
+import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.By;
@@ -33,17 +34,41 @@ public class GetPage extends BaseUI {
     String PageName; 
     
     
-    protected WebElement element( String ElementName) {
-		
+    protected WebElement element( String ElementName) throws InterruptedException {
+
 		String type=config.getElementsIdentifier(PageName, ElementName).get("type");
     	String value=config.getElementsIdentifier(PageName, ElementName).get("value");
-    	WebElement elem = driver.findElement( getBy(type, value) );
+    	System.out.println(">>>>>>"+ElementName+"-----------"+PageName+"----"+type+"------"+value);
+    	WebElement elem = driver.findElement(getBy(type, value) );
     	wait.waitForElementToBeVisible(elem);
 
 	    return elem;
 		 
 	}
     
+    
+    protected  void elementClick( String ElementName) throws InterruptedException {
+
+    	String type=config.getElementsIdentifier(PageName, ElementName).get("type");
+    	String value=config.getElementsIdentifier(PageName, ElementName).get("value");
+    	System.out.println(">>>>>>"+ElementName+"-----------"+PageName+"----"+type+"------"+value);
+    	driver.findElement(getBy(type, value)).click();
+    	
+		 
+	}
+    
+    	protected List<WebElement> elements( String ElementName) {
+		
+		String type=config.getElementsIdentifier(PageName, ElementName).get("type");
+    	String value=config.getElementsIdentifier(PageName, ElementName).get("value");
+    	System.out.println(">>>>>>"+ElementName+"-----------"+PageName+"----"+type+"------"+value);
+    	List<WebElement> elem = driver.findElements( getBy(type, value) );
+    	wait.waitForElementsToBeVisible(elem);
+    	click(elem.get(0));
+	    return elem;
+		 
+	}
+ 
     protected String getTestDataFromYaml(String ElementName)
     {
 	

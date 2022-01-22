@@ -1,5 +1,7 @@
 package com.framework.getpageobjects;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -19,6 +21,14 @@ public class SeleniumWait {
 	    
 	    public WebElement waitForElementToBeVisible(WebElement element) {
 	        return (WebElement) wait.until(ExpectedConditions.visibilityOf(element));
+	    }
+	    
+	    public List<WebElement> waitForElementsToBeVisible(List<WebElement> elements) {
+	        return (List<WebElement>) wait.until(ExpectedConditions.visibilityOfAllElements(elements));
+	    }
+	    
+	    public WebElement waitForElementToBeClickable(WebElement element) {
+	        return (WebElement) wait.until(ExpectedConditions.elementToBeClickable(element));
 	    }
 
 }

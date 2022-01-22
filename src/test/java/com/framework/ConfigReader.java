@@ -36,6 +36,8 @@ public class ConfigReader {
 		testEnv.put("browser", getBrowser());
 		testEnv.put("baseURL", getbaseURL());
 		testEnv.put("seleniumserver", getseleniumserver());
+		testEnv.put("seleniumserverhost", getseleniumserverhost());
+		testEnv.put("timeout", gettimeout());
 
 		if (platform.contains("android")) {
 			testEnv.put("androideviceName", getAndroidDeviceName());
@@ -47,6 +49,18 @@ public class ConfigReader {
 
 		return testEnv;
 
+	}
+
+	private String getseleniumserverhost() {
+		String seleniumserverhost = testEnvMap.get("Execution").get("environment").get("seleniumserverhost").toString();
+		logger.debug("Test will be executed on machine " + seleniumserverhost);
+		return seleniumserverhost;		
+	}
+
+	private String gettimeout() {
+//		String timeout = testEnvMap.get("Execution").get("environment").get("timeout").toString();
+//		logger.debug("Test will be executed on machine " + timeout);
+		return "10";		
 	}
 
 	private String getAndroidDeviceName() {
@@ -144,11 +158,11 @@ public class ConfigReader {
 
 		int val = 0;
 		logger.debug("*************** Searching Identifier for element " + ElementName+"***************");
-		String type=null,value=null;
+		String type=null,value=null,platform;
 		while (test1.size() > val) {
 			List<String> t = (List<String>) test1.get(val).get("platform");
-
-			if(t.contains(Platform))
+			
+			if(containsCaseInsensitive(Platform,t))
 			{
 				logger.debug("Platform found for element" + test1.get(val));
 				 type = test1.get(val).get("type").toString();
@@ -174,6 +188,14 @@ public class ConfigReader {
 	return identifier;
 		
 	}
+	public boolean containsCaseInsensitive(String s, List<String> l){
+	     for (String string : l){
+	        if (string.equalsIgnoreCase(s)){
+	            return true;
+	         }
+	     }
+	    return false;
+	  }
 
 	private Map<String, Map<String, Map<String, Map<String, Map<String, Map<String, ArrayList<String>>>>>>> readPageSpecs(
 			String PageName) {

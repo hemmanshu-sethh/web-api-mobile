@@ -39,6 +39,7 @@ public class WebDriverFactory {
 		
 		if (getEnv.get("seleniumserver").equalsIgnoreCase("local")) {
 
+
 			if (getEnv.get("platform").equalsIgnoreCase("windows")) {
 
 				if (browser.equalsIgnoreCase("firefox")) {
@@ -46,6 +47,7 @@ public class WebDriverFactory {
 				} else if (browser.equalsIgnoreCase("chrome")) {
 					return getChromeDriver();
 				} else if (browser.equalsIgnoreCase("firefox")) {
+		
 					return getFirefoxDriver();
 				} else if (browser.equalsIgnoreCase("Safari")) {
 					return getSafariDriver();
@@ -59,6 +61,7 @@ public class WebDriverFactory {
 			
 			if (getEnv.get("platform").equalsIgnoreCase("android")) {
 				try {
+	
 					return getAppiumDriver(getEnv);
 				} catch (MalformedURLException e) {
 					e.printStackTrace();
@@ -100,7 +103,7 @@ public class WebDriverFactory {
 	private static WebDriver getAppiumDriver(Map<String, String> getEnv) throws MalformedURLException {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 
-		capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
+		capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, getEnv.get("platform"));
 		capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, getEnv.get("androidversion"));
 		capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, getEnv.get("androideviceName"));
 		capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, getEnv.get("androidautomation"));
@@ -139,9 +142,9 @@ public class WebDriverFactory {
 	private static WebDriver getFirefoxDriver() {
 		FirefoxProfile profile = new FirefoxProfile();
 		profile.setPreference("browser.cache.disk.enable", false);
-		profile.setPreference("binary", "C:\\dev\\browsers\\geckodriver.exe");
 		FirefoxOptions firefoxOptions = new FirefoxOptions();
 		firefoxOptions.setCapability("marionette", true);
+		firefoxOptions.setCapability("moz:firefoxOptions", true);
 		firefoxOptions.setCapability(FirefoxDriver.PROFILE, profile);
 		return new FirefoxDriver(firefoxOptions);
 	}
