@@ -1,4 +1,4 @@
-package com.framework.getpageobjects;
+package com.automation.framework.getpageobjects;
 	public enum Locators {
 		id, name, classname, css, xpath, linktext;
 	}

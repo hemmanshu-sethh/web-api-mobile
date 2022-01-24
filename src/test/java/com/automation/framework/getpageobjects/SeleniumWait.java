@@ -1,4 +1,4 @@
-package com.framework.getpageobjects;
+package com.automation.framework.getpageobjects;
 
 import java.util.List;
 

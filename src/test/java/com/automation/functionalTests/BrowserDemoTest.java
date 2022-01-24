@@ -1,24 +1,20 @@
-package com.automation.functional;
+package com.automation.functionalTests;
 
-import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.framework.TestInitiator;
+import com.automation.framework.TestInitiator;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import static com.framework.ConfigReader.getElementsTestData;;
+;
 
-public class DemoTest {
+public class BrowserDemoTest {
 	private static Logger logger = LogManager.getLogger();
 	TestInitiator test;
 	String app_url;
@@ -36,19 +32,23 @@ public class DemoTest {
 	@Test(description = "Test to Verify Google Home Page Launch")
 	public void testGoogleHomePageLaunch() throws IOException, Exception {
 		test.LaunchApplication();
-		test.ttrhomepage.PerformSearch();
 	}
-
-	@Test(dependsOnMethods = "testGoogleHomePageLaunch", description = "Perform Search")
-	public void clickOnFirstResult() throws InterruptedException {
-		test.ttrhomepage.clickFirstResult();
-
+	
+	@Test(dependsOnMethods="testGoogleHomePageLaunch",description = "Test to Verify Google Home Page Launch")
+	public void performGoogleSearch() throws IOException, Exception {
+		test.googleHomePage.PerformSearch();
 	}
-
+	
+	@Test(dependsOnMethods = "performGoogleSearch",description = "Test to Validate Books Selection")
+	public void googleBooksTab() throws IOException, Exception {
+		test.googleHomePage.clickBooks();
+		test.googleHomePage.validateBooksFilters();
+	}
+	
 
     @AfterClass
     public void testEnd() throws InterruptedException {
-//        test.closeTestSession();
+        test.closeTestSession();
     }
 
 

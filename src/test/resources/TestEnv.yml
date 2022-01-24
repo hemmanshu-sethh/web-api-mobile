@@ -5,12 +5,22 @@ Execution:
      browser: chrome
   environment:
      seleniumserver: local
-     seleniumserverhost: http://10.0.36.15:4444/wd/hub
+     seleniumserverhost: http://192.168.1.27:4444/wd/hub
      timeout: 60
   android:
-     version: 10.0
-     device: emulator-5554
-     automation: UiAutomator2    
+    version: 10.0
+    device: emulator-5554
+    automation: UiAutomator2
+#   android:
+#      version: 12.0
+#      device: 93CAY096T6
+#      automation: UiAutomator2
+  androidapp:
+     apk:
+     package:
+     activity:
+     noreset:
+     fullreset: 
 URLs:
   QA:
     web: https://www.google.com
