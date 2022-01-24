@@ -1,0 +1,82 @@
+# platform windows/android/osx/ios,
+#keywords
+
+Title: Calculator
+elements:  
+   "1":
+     label: 1
+     identifier:
+          - {platform:["android"],type: id, value: 'com.google.android.calculator:id/digit_1'}
+   "2":
+     label: 2
+     identifier:
+          - {platform:["android"],type: id, value: 'com.google.android.calculator:id/digit_2'}
+   "3":
+     label: 3
+     identifier:
+          - {platform:["android"],type: id, value: 'com.google.android.calculator:id/digit_3'}
+   "4":
+     label: 4
+     identifier:
+          - {platform:["android"],type: id, value: 'com.google.android.calculator:id/digit_4'}
+   "5":
+     label: 5
+     identifier:
+          - {platform:["android"],type: id, value: 'com.google.android.calculator:id/digit_5'}
+   "6":
+     label: 6
+     identifier:
+          - {platform:["android"],type: id, value: 'com.google.android.calculator:id/digit_6'}
+   "7":
+     label: 6
+     identifier:
+          - {platform:["android"],type: id, value: 'com.google.android.calculator:id/digit_7'}
+   "8":
+     label: 8
+     identifier:
+          - {platform:["android"],type: id, value: 'com.google.android.calculator:id/digit_8'}
+   "9":
+     label: 9
+     identifier:
+          - {platform:["android"],type: id, value: 'com.google.android.calculator:id/digit_9'}
+   "0":
+     label: 0
+     identifier:
+          - {platform:["android"],type: id, value: 'com.google.android.calculator:id/digit_0'}
+   AC:
+     label: AC
+     identifier:
+          - {platform:["android"],type: id, value: 'com.google.android.calculator:id/clr'}
+   multiply:
+     label: X
+     identifier:
+          - {platform:["android"],type: id, value: 'com.google.android.calculator:id/op_mul'}
+   divide:
+     label: "%"
+     identifier:
+          - {platform:["android"],type: id, value: 'com.google.android.calculator:id/op_div'}
+   subtract:
+     label: "-"
+     identifier:
+          - {platform:["android"],type: id, value: 'com.google.android.calculator:id/op_sub'}
+   equalto:
+     label: "="
+     identifier:
+          - {platform:["android"],type: id, value: 'com.google.android.calculator:id/eq'}
+   delete:
+     identifier:
+          - {platform:["android"],type: id, value: 'com.google.android.calculator:id/del'}
+   add:
+     label: "+"
+     identifier:
+          - {platform:["android"],type: id, value: 'com.google.android.calculator:id/op_add'}
+   decimal:
+     label: "."
+     identifier:
+          - {platform:["android"],type: id, value: 'com.google.android.calculator:id/dec_point'}
+   screen:
+     identifier:
+          - {platform:["android"],type: classname, value: 'android.widget.TextView'}
+
+
+

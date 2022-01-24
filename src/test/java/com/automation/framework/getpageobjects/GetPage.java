@@ -4,7 +4,9 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
-import com.automation.framework.ConfigReader;
+import com.automation.framework.utils.ConfigReader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,21 +23,22 @@ public class GetPage extends BaseUI {
     }
     
 	ConfigReader config = new ConfigReader();
-	
-	
+    private static final Logger logger = LogManager.getLogger();
+
+
     protected WebDriver webdriver;
     
     String PageName; 
     
     
     protected WebElement element( String ElementName) throws InterruptedException {
-
 		String type=config.getElementsIdentifier(PageName, ElementName).get("type");
     	String value=config.getElementsIdentifier(PageName, ElementName).get("value");
-    	System.out.println(">>>>>>"+ElementName+"-----------"+PageName+"----"+type+"------"+value);
-    	WebElement elem = driver.findElement(getBy(type, value) );
-    	wait.waitForElementToBeVisible(elem);
+        logger.debug("Yaml value for Element Name " +ElementName+ " type= "+type );
+        logger.debug("Yaml value for Element Name " +ElementName+ " type= "+value );
 
+        WebElement elem = driver.findElement(getBy(type, value) );
+    	wait.waitForElementToBeVisible(elem);
 	    return elem;
 		 
 	}
@@ -53,7 +56,6 @@ public class GetPage extends BaseUI {
 		
 		String type=config.getElementsIdentifier(PageName, ElementName).get("type");
     	String value=config.getElementsIdentifier(PageName, ElementName).get("value");
-    	System.out.println(">>>>>>"+ElementName+"-----------"+PageName+"----"+type+"------"+value);
     	List<WebElement> elem = driver.findElements( getBy(type, value) );
     	wait.waitForElementsToBeVisible(elem);
     	click(elem.get(0));
@@ -64,7 +66,7 @@ public class GetPage extends BaseUI {
     protected String getTestDataFromYaml(String ElementName)
     {
 	
-    return config.getElementsTestData(PageName,"searchbox");
+    return ConfigReader.getElementsTestData(PageName,"searchbox");
     		
     }
     

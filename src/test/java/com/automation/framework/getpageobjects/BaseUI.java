@@ -10,7 +10,7 @@ public class BaseUI {
 
 	protected WebDriver driver;
 	public SeleniumWait wait;
-	private String PageName;
+	private final String PageName;
 
 
 	protected BaseUI (WebDriver driver, String pageName) {

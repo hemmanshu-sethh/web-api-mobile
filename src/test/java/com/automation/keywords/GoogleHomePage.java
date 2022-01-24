@@ -7,7 +7,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import com.automation.framework.ConfigReader;
+import com.automation.framework.utils.ConfigReader;
 
 import com.automation.framework.getpageobjects.GetPage;
 

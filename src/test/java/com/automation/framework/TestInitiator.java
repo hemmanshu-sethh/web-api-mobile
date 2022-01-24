@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import com.automation.framework.utils.ConfigReader;
 import org.openqa.selenium.WebDriver;
 
 import com.automation.keywords.GoogleHomePage;
@@ -45,9 +46,7 @@ public class TestInitiator {
 		
 		ConfigReader config = new ConfigReader();
 		testEnv = config.getTestEnv();
-		System.out.println(config.getTestEnv().toString());
 		driver = wdfactory.getDriver(testEnv);
-		System.out.println("000000000000000000000000000000000000000000000000"+driver);
 
 //		driver.manage().deleteAllCookies();
 		driver.manage().timeouts().implicitlyWait((60), TimeUnit.SECONDS);
